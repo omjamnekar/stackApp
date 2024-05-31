@@ -7,4 +7,3 @@ let y: number = 29;
 
 let sn: number = t + y;
 console.log(sn);
-
