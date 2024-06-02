@@ -1,6 +1,12 @@
 
 
 import express from 'express';
+import userRouting from './routing/user_routing';
+import postRouting from './routing/post_routing';
+import appLogger from './app_logger/app_logger';
+
+
+
 
 const app: express.Application = express();
 
@@ -8,40 +14,15 @@ const localhost: string = "localhost";
 
 const postNumber: number = 5000;
 
-app.get('/', (req: express.Request, res: express.Response) => {
 
-    res.status(200);
-    res.send(`<h1>welcome to express server Get</h1>`);
-});
-
-
-
-app.post('/', (req: express.Request, res: express.Response) => {
-
-    res.status(200);
-    res.send(`<h1>welcome to express server Post</h1>`);
-});
-
-
-
-app.put('/', (req: express.Request, res: express.Response) => {
-
-    res.status(200);
-    res.send(`<h1>welcome to express server Put</h1>`);
-});
-
-
-
-app.delete('/', (req: express.Request, res: express.Response) => {
-
-    res.status(200);
-    res.send(`<h1>welcome to express server Delete</h1>`);
-});
-
-
+app.use(express.json());
+app.use(appLogger);
+app.use("/v1/user", userRouting);
+app.use("/v1/post", postRouting);
 
 
 app.listen(postNumber, localhost, () => {
-    console.log("Welcome to express server");
+    console.log(`http://${localhost}:${postNumber}/v1/user/update`);
+    console.log("Welcome to express server routing optimzation");
 });
 
